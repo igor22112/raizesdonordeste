@@ -1,0 +1,50 @@
+@startuml implantacao
+!pragma layout smetana
+skinparam defaultFontName Arial
+
+node "Dispositivos" {
+  artifact "App (iOS/Android)" as app
+  artifact "Totens (lojas)" as totem
+  artifact "Front balcão/cozinha" as front
+}
+
+cloud "Nuvem (produção — proposta)" {
+  node "API Gateway / Load Balancer\n(TLS, WAF)" as lb
+  node "Cluster de containers\n(Kubernetes ou App Service)" as k8s {
+    node "Pod API #1" as p1 {
+      artifact "RaizesDoNordeste.Api" as a1
+    }
+    node "Pod API #2" as p2 {
+      artifact "RaizesDoNordeste.Api" as a2
+    }
+    node "Pod API #N\n(autoescala por CPU/req)" as pn {
+      artifact "RaizesDoNordeste.Api" as an
+    }
+    node "Pod Jobs\n(Outbox, expiração\nde pedidos)" as pj {
+      artifact "RaizesDoNordeste.Api\nJobs:Habilitados=true" as aj
+    }
+  }
+  database "SQL Server gerenciado\n(primário + réplica de leitura\npara relatórios)" as sql
+  node "Cofre de segredos" as kv
+  node "Observabilidade\n(logs, métricas, alertas)" as obs
+}
+
+cloud "Provedor de pagamento" as gw
+
+app --> lb
+totem --> lb
+front --> lb
+lb --> k8s
+k8s --> sql
+k8s --> kv
+k8s --> obs
+k8s --> gw : HTTPS
+gw --> lb : webhook
+
+note bottom of k8s
+  Ambiente de desenvolvimento: docker-compose
+  (sqlserver + gateway simulado + api).
+  Pods da API com Jobs:Habilitados=false;
+  um pod dedicado executa os jobs.
+end note
+@enduml

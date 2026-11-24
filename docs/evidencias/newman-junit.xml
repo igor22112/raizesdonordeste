@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Raízes do Nordeste - API" tests="68" time="2.270">
+  <testsuite name="01 Auth / T01 - Login válido (admin da matriz)" id="ea2589b5-519d-4abe-981f-d2dd5079f889" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.204">
+    <testcase name="HTTP 200" time="0.204" classname="RaizesDoNordesteApi"/>
+    <testcase name="accessToken presente" time="0.204" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / Login cliente Maria" id="111ba938-4ce6-4e39-b0c3-36c76b64527c" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.041">
+    <testcase name="HTTP 200" time="0.041" classname="RaizesDoNordesteApi"/>
+    <testcase name="accessToken presente" time="0.041" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / Login cliente Ana (sem fidelidade)" id="907d659f-d900-4fb6-b931-ccda01d1b20b" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.040">
+    <testcase name="HTTP 200" time="0.040" classname="RaizesDoNordesteApi"/>
+    <testcase name="accessToken presente" time="0.040" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / Login gerente aeroporto" id="21011d3d-eb32-46ff-9ccf-c583b9fd7919" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.034">
+    <testcase name="HTTP 200" time="0.034" classname="RaizesDoNordesteApi"/>
+    <testcase name="accessToken presente" time="0.034" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / Login atendente aeroporto" id="85b3786f-e21d-4adf-a1b0-a14a60cd1fbd" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.034">
+    <testcase name="HTTP 200" time="0.034" classname="RaizesDoNordesteApi"/>
+    <testcase name="accessToken presente" time="0.034" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / Login cozinha aeroporto" id="cc6229ef-1c60-4337-86f3-8b99e26483ed" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.035">
+    <testcase name="HTTP 200" time="0.035" classname="RaizesDoNordesteApi"/>
+    <testcase name="accessToken presente" time="0.035" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / Login totem aeroporto" id="bd1c6ae6-8e30-413f-8143-75663a0dd6be" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.035">
+    <testcase name="HTTP 200" time="0.035" classname="RaizesDoNordesteApi"/>
+    <testcase name="accessToken presente" time="0.035" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / T02 - Sem token (401)" id="81d3c532-477d-41b8-84a8-86b5ef6e8f9e" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.017">
+    <testcase name="HTTP 401" time="0.017" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo NAO_AUTENTICADO" time="0.017" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.017" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / T03 - Perfil sem permissão: cliente na auditoria (403)" id="2797dc14-f265-432c-bac0-4a2a47ea1491" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.020">
+    <testcase name="HTTP 403" time="0.020" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo ACESSO_NEGADO" time="0.020" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.020" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / T04 - Login com senha errada (401)" id="207f3e7d-5a4b-4071-bfea-5e93e40f3305" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.040">
+    <testcase name="HTTP 401" time="0.040" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo NAO_AUTENTICADO" time="0.040" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.040" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / T05 - Cadastrar cliente com consentimentos (201)" id="7b2a1779-5146-4522-b6c9-490c9c55e4b8" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.060">
+    <testcase name="HTTP 201" time="0.060" classname="RaizesDoNordesteApi"/>
+    <testcase name="Perfil Cliente" time="0.060" classname="RaizesDoNordesteApi"/>
+    <testcase name="Não expõe hash de senha" time="0.060" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / T06 - Cadastro com e-mail inválido (400)" id="f84dd508-2755-4ba7-95c8-705e6dbc49c7" timestamp="2026-11-13T22:08:33.926Z" tests="4" failures="0" errors="0" time="0.011">
+    <testcase name="HTTP 400" time="0.011" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo VALIDACAO" time="0.011" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.011" classname="RaizesDoNordesteApi"/>
+    <testcase name="Aponta o campo Email" time="0.011" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="01 Auth / T07 - Cadastro sem aceitar termos (400)" id="56cfc18d-f5d0-4f41-9eb0-8d13866db228" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 400" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo VALIDACAO" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.004" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="02 Unidades e Cardápio / T08 - Listar unidades (200)" id="17c5a0b3-e7d4-46ae-9876-9b466f1edfd0" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.034">
+    <testcase name="HTTP 200" time="0.034" classname="RaizesDoNordesteApi"/>
+    <testcase name="Aeroporto 24h aberta e com cozinha reduzida" time="0.034" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="02 Unidades e Cardápio / T09 - Cardápio da unidade (200)" id="20513864-0d2a-42ed-925c-366d10ebb801" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.104">
+    <testcase name="HTTP 200" time="0.104" classname="RaizesDoNordesteApi"/>
+    <testcase name="Sem produtos de cozinha completa" time="0.104" classname="RaizesDoNordesteApi"/>
+    <testcase name="Sem produtos juninos fora de época" time="0.104" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="02 Unidades e Cardápio / Cardápio Boa Viagem (cozinha completa)" id="5ae5fd14-eeff-4872-88dc-2f05eeb4e4c3" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.007">
+    <testcase name="HTTP 200" time="0.007" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="02 Unidades e Cardápio / T10 - Liberar produto de cozinha completa em unidade reduzida (409)" id="47c6824d-3d2d-47e2-9cf5-f8d11fc3c198" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.027">
+    <testcase name="HTTP 409" time="0.027" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo PRODUTO_INCOMPATIVEL_UNIDADE" time="0.027" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.027" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="02 Unidades e Cardápio / T11 - Gerente alterando cardápio de outra unidade (403)" id="2bfe6e9c-bf4b-4a06-88dd-358d85cf79fa" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 403" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo ACESSO_NEGADO" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.004" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="03 Produtos e Estoque / T12 - Admin cadastra produto (201)" id="3d0433e5-5980-458b-b42a-95afb7efc895" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.040">
+    <testcase name="HTTP 201" time="0.040" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="03 Produtos e Estoque / Admin libera o produto no cardápio do aeroporto" id="dc9544db-f6c2-4a93-a9d9-775c51733dc4" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.042">
+    <testcase name="HTTP 200" time="0.042" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="03 Produtos e Estoque / T13 - Entrada de estoque (201)" id="5ff7245c-38f3-49aa-8e41-16521f0fbf90" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.062">
+    <testcase name="HTTP 201" time="0.062" classname="RaizesDoNordesteApi"/>
+    <testcase name="Saldo 3" time="0.062" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="03 Produtos e Estoque / T14 - Consultar saldo da unidade (200)" id="4fcab247-0c7a-435b-9769-6ab2c81a7808" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 200" time="0.024" classname="RaizesDoNordesteApi"/>
+    <testcase name="Produto teste com 3 disponíveis" time="0.024" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="03 Produtos e Estoque / T15 - Perda sem motivo (400)" id="30e2e5e6-b537-4307-808b-3f412374eb2f" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 400" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo VALIDACAO" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.005" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="03 Produtos e Estoque / T16 - Registrar perda com motivo (auditada) (201)" id="0e008fa8-4634-4d83-9434-d06a7fd2f74f" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.032">
+    <testcase name="HTTP 201" time="0.032" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="03 Produtos e Estoque / T17 - Gerente consultando estoque de outra unidade (403)" id="cc98d93a-97db-40c4-9f6f-53acc0438064" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 403" time="0.003" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo ACESSO_NEGADO" time="0.003" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.003" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / Fidelidade antes do pedido" id="a6b80716-0128-4391-a6db-2d91a7f7b630" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.112">
+    <testcase name="HTTP 200" time="0.112" classname="RaizesDoNordesteApi"/>
+    <testcase name="Maria é nível Prata" time="0.112" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T18 - Criar pedido válido pelo APP com resgate de pontos (201)" id="4373fc5b-1951-4b9e-8384-9c5665f9c5a6" timestamp="2026-11-13T22:08:33.926Z" tests="4" failures="0" errors="0" time="0.156">
+    <testcase name="HTTP 201" time="0.156" classname="RaizesDoNordesteApi"/>
+    <testcase name="canalPedido App" time="0.156" classname="RaizesDoNordesteApi"/>
+    <testcase name="AguardandoPagamento" time="0.156" classname="RaizesDoNordesteApi"/>
+    <testcase name="Itens, valores e descontos" time="0.156" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T19 - Reenvio com a mesma Idempotency-Key não duplica (200)" id="8027673f-3912-4dbf-acef-c9ab39bbced8" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.069">
+    <testcase name="HTTP 200" time="0.069" classname="RaizesDoNordesteApi"/>
+    <testcase name="Mesmo pedido" time="0.069" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T20 - Totem cria pedido com canalPedido TOTEM (201)" id="97d151d5-f230-4d96-98c4-e297674e432f" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 201" time="0.024" classname="RaizesDoNordesteApi"/>
+    <testcase name="canalPedido Totem" time="0.024" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T21 - Pedido sem canalPedido (400)" id="f9ec9f40-8ef6-4e40-9956-9e594e31b27b" timestamp="2026-11-13T22:08:33.926Z" tests="4" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 400" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo VALIDACAO" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="Aponta canalPedido" time="0.004" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T22 - Pedido com canalPedido inválido (400)" id="571ab3fa-f060-4d71-adbe-a41e6a1ed2ff" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 400" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo VALIDACAO" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.005" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T23 - Cliente declarando canal TOTEM (409)" id="e14e2d59-41a7-47e0-9bf3-0b6f77d719a4" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.006">
+    <testcase name="HTTP 409" time="0.006" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo CANAL_INCOMPATIVEL" time="0.006" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.006" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T24 - Quantidade negativa (400)" id="333387f5-2232-4128-b19d-ff6493b0d53b" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 400" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo VALIDACAO" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.004" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T25 - Pedido com produto inexistente (404)" id="adb4d299-8512-4443-b959-2880832c9301" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.006">
+    <testcase name="HTTP 404" time="0.006" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo NAO_ENCONTRADO" time="0.006" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.006" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T26 - Pedido com unidade inexistente (404)" id="4de5f3f8-b3d0-4519-b13e-75e10f9ac7a1" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 404" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo NAO_ENCONTRADO" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.005" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T27 - Pedido com estoque insuficiente (409)" id="f44a80b1-2616-4a67-859f-841e29ded9b3" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.011">
+    <testcase name="HTTP 409" time="0.011" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo ESTOQUE_INSUFICIENTE" time="0.011" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.011" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T28 - Sem consentimento de fidelidade, resgatar pontos (409)" id="36e24aba-6ca8-4e3c-b5e8-443ea252bc10" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.009">
+    <testcase name="HTTP 409" time="0.009" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo FIDELIDADE_SEM_CONSENTIMENTO" time="0.009" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.009" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T29 - Listar pedidos filtrando por canal e status, paginado (200)" id="e92778e2-460f-4d59-95b9-b3924a8960a2" timestamp="2026-11-13T22:08:33.926Z" tests="4" failures="0" errors="0" time="0.045">
+    <testcase name="HTTP 200" time="0.045" classname="RaizesDoNordesteApi"/>
+    <testcase name="Só pedidos de totem" time="0.045" classname="RaizesDoNordesteApi"/>
+    <testcase name="Contém o pedido do totem" time="0.045" classname="RaizesDoNordesteApi"/>
+    <testcase name="Paginação" time="0.045" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="04 Pedidos / T30 - Cancelar pedido não pago (200)" id="4abddc6c-bc5d-4d32-bbe3-55da6ec2772d" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.052">
+    <testcase name="HTTP 200" time="0.052" classname="RaizesDoNordesteApi"/>
+    <testcase name="Cancelado" time="0.052" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T31 - Solicitar pagamento ao gateway mock (202)" id="d22c15dd-817e-4b59-9287-3eb414033cba" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.153">
+    <testcase name="HTTP 202" time="0.153" classname="RaizesDoNordesteApi"/>
+    <testcase name="Pagamento Pendente" time="0.153" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T32 - Pagamento aprovado atualiza o pedido para Pago (200)" id="f32ac3a5-3426-4485-b9cc-bcbe31cba3f7" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.012">
+    <testcase name="HTTP 200" time="0.012" classname="RaizesDoNordesteApi"/>
+    <testcase name="Pedido Pago" time="0.012" classname="RaizesDoNordesteApi"/>
+    <testcase name="Pagamento Aprovado" time="0.012" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T33 - Cozinha: EmPreparo (200)" id="9094b7de-dc6a-420e-9831-09a745ded35e" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.028">
+    <testcase name="HTTP 200" time="0.028" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T34 - Cozinha: Pronto (200)" id="900fee07-6a1c-454f-b2d2-3a982be89fd3" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 200" time="0.015" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T35 - Cozinha tentando entregar (403)" id="f92f661e-7285-4322-9ab3-5d0090300b1a" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.008">
+    <testcase name="HTTP 403" time="0.008" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo ACESSO_NEGADO" time="0.008" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.008" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T36 - Atendente: Entregue, com histórico completo (200)" id="639c32b5-83a0-45dc-afd0-1e0419c0abb5" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 200" time="0.024" classname="RaizesDoNordesteApi"/>
+    <testcase name="Histórico" time="0.024" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T37 - Pontos creditados na entrega (200)" id="a4fe2b73-7013-47bf-9208-006e2c2ffc05" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.008">
+    <testcase name="HTTP 200" time="0.008" classname="RaizesDoNordesteApi"/>
+    <testcase name="Saldo aumentou além do resgate" time="0.008" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / Totem cria pedido de R$ 13,13 (valor que o mock recusa)" id="e05ee3da-885a-4269-b25b-d322d72151f4" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 201" time="0.015" classname="RaizesDoNordesteApi"/>
+    <testcase name="Total 13.13" time="0.015" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T38 - Pagamento recusado pelo mock (202 e depois Recusado)" id="2b3911db-f4f1-42f2-9c50-5c4118983161" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.020">
+    <testcase name="HTTP 202" time="0.020" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T39 - Pedido recusado continua aguardando, com motivo (200)" id="79ef03ef-a814-4bb8-9f0c-2a8ba4defd17" timestamp="2026-11-13T22:08:33.926Z" tests="4" failures="0" errors="0" time="0.006">
+    <testcase name="HTTP 200" time="0.006" classname="RaizesDoNordesteApi"/>
+    <testcase name="Pagamento Recusado" time="0.006" classname="RaizesDoNordesteApi"/>
+    <testcase name="Mensagem do gateway" time="0.006" classname="RaizesDoNordesteApi"/>
+    <testcase name="Pedido segue AguardandoPagamento" time="0.006" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / Balcão cria pedido" id="7cc219be-a0c3-4121-b321-fd3ffa05b0d8" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.018">
+    <testcase name="HTTP 201" time="0.018" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / Balcão paga com cartão" id="7dd8fd07-e1e3-4918-81e3-fb57ea7142d4" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.019">
+    <testcase name="HTTP 202" time="0.019" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T40 - Cancelar pedido pago estorna no gateway (200)" id="cbf82483-65e8-4f1f-9ad2-0806f48e9134" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.057">
+    <testcase name="HTTP 200" time="0.057" classname="RaizesDoNordesteApi"/>
+    <testcase name="Cancelado" time="0.057" classname="RaizesDoNordesteApi"/>
+    <testcase name="Estornado" time="0.057" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="05 Pagamento (mock) e Status / T41 - Webhook sem assinatura HMAC (401)" id="1e6d6d07-44d3-4257-8441-6fe34920ffda" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 401" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo NAO_AUTENTICADO" time="0.005" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.005" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="06 Fidelidade, Campanhas e LGPD / T42 - Revogar consentimento de campanhas (200)" id="074058c7-5839-492e-a430-d4c502a80029" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.024">
+    <testcase name="HTTP 200" time="0.024" classname="RaizesDoNordesteApi"/>
+    <testcase name="Revogado" time="0.024" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="06 Fidelidade, Campanhas e LGPD / Conceder novamente" id="17925162-47d5-456e-a5c0-6a2148664f09" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.010">
+    <testcase name="HTTP 200" time="0.010" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="06 Fidelidade, Campanhas e LGPD / T43 - Revogar termos de uso isoladamente (409)" id="d91eeb8d-57fd-44a0-8b9e-c2cf95accaa6" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 409" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo TERMOS_OBRIGATORIOS" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.004" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="06 Fidelidade, Campanhas e LGPD / T44 - Exportar meus dados (portabilidade LGPD) (200)" id="fc4d54f3-d3b7-48bb-a53a-73f6dd7c0232" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.065">
+    <testcase name="HTTP 200" time="0.065" classname="RaizesDoNordesteApi"/>
+    <testcase name="Cadastro, pedidos e consentimentos" time="0.065" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="06 Fidelidade, Campanhas e LGPD / T45 - Admin cria campanha regional (201)" id="e16042a5-3c91-4171-a0df-04a43893d1de" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.039">
+    <testcase name="HTTP 201" time="0.039" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="06 Fidelidade, Campanhas e LGPD / T46 - Campanhas elegíveis para a Maria (200)" id="ba95c386-6aa1-4844-846e-9bd450e2dfcf" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.048">
+    <testcase name="HTTP 200" time="0.048" classname="RaizesDoNordesteApi"/>
+    <testcase name="Campanha listada" time="0.048" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / T47 - Vendas consolidadas por canal (200)" id="9955d9f3-2e16-441f-902a-33c1a03b5572" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.037">
+    <testcase name="HTTP 200" time="0.037" classname="RaizesDoNordesteApi"/>
+    <testcase name="Há vendas por canal" time="0.037" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / Vendas por região" id="f692266f-a612-461c-8094-7c95a0c40296" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.026">
+    <testcase name="HTTP 200" time="0.026" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / Vendas por unidade" id="d78348e3-5519-4004-aaf5-e8f22965d48d" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.026">
+    <testcase name="HTTP 200" time="0.026" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / Produtos mais vendidos" id="39ee1233-9544-42bf-ab60-c363c71a4eaa" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.035">
+    <testcase name="HTTP 200" time="0.035" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / T48 - Gerente no consolidado por região (403)" id="2bf3e134-f7f9-4f47-a630-de3e614c08c2" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 403" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="codigo ACESSO_NEGADO" time="0.004" classname="RaizesDoNordesteApi"/>
+    <testcase name="Formato de erro padrão" time="0.004" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / T49 - Criação do pedido gerou registro de auditoria (200)" id="d34cd1e9-5c20-42ea-b833-abf61fc33e71" timestamp="2026-11-13T22:08:33.926Z" tests="3" failures="0" errors="0" time="0.068">
+    <testcase name="HTTP 200" time="0.068" classname="RaizesDoNordesteApi"/>
+    <testcase name="1 registro PedidoCriado" time="0.068" classname="RaizesDoNordesteApi"/>
+    <testcase name="Registra usuário e perfil" time="0.068" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / T50 - Mudanças de status do pedido auditadas (200)" id="60f8ef78-3d7f-4d40-9729-90afc5d7dff2" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.007">
+    <testcase name="HTTP 200" time="0.007" classname="RaizesDoNordesteApi"/>
+    <testcase name="4 mudanças (Pago, EmPreparo, Pronto, Entregue)" time="0.007" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / T51 - Cancelamento e estorno auditados (200)" id="39f1f137-171d-40e4-805f-30f47a71fb5b" timestamp="2026-11-13T22:08:33.926Z" tests="2" failures="0" errors="0" time="0.007">
+    <testcase name="HTTP 200" time="0.007" classname="RaizesDoNordesteApi"/>
+    <testcase name="Cancelamento com motivo" time="0.007" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+  <testsuite name="07 Relatórios e Auditoria / T52 - Health check (readiness) (200)" id="b4483358-402f-4861-9023-baf09733fb49" timestamp="2026-11-13T22:08:33.926Z" tests="1" failures="0" errors="0" time="0.015">
+    <testcase name="HTTP 200" time="0.015" classname="RaizesDoNordesteApi"/>
+  </testsuite>
+</testsuites>

@@ -1,0 +1,209 @@
+Summary
+  Generated on: 13/11/2026 - 19:17:12
+  Coverage date: 13/11/2026 - 19:00:54 - 13/11/2026 - 19:01:41
+  Parser: MultiReport (4x Cobertura)
+  Assemblies: 5
+  Classes: 179
+  Files: 44
+  Line coverage: 86.7%
+  Covered lines: 2672
+  Uncovered lines: 408
+  Coverable lines: 3080
+  Total lines: 5197
+  Branch coverage: 71.8% (657 of 914)
+  Covered branches: 657
+  Total branches: 914
+  Method coverage: 94.1% (657 of 698)
+  Full method coverage: 88.9% (621 of 698)
+  Covered methods: 657
+  Fully covered methods: 621
+  Total methods: 698
+
+PaymentGateway.Mock                                                          84.2%
+  PaymentGateway.Mock.EstadoSimulacao                                           0%
+  PaymentGateway.Mock.Repositorio                                             100%
+  PaymentGateway.Mock.SolicitacaoPagamento                                    100%
+  PaymentGateway.Mock.Transacao                                               100%
+  Program                                                                      81%
+
+RaizesDoNordeste.Api                                                         84.6%
+  Program                                                                    91.5%
+  RaizesDoNordeste.Api.Controllers.AuditoriaController                        100%
+  RaizesDoNordeste.Api.Controllers.AuthController                             100%
+  RaizesDoNordeste.Api.Controllers.CampanhasController                         50%
+  RaizesDoNordeste.Api.Controllers.CardapioController                         100%
+  RaizesDoNordeste.Api.Controllers.ClientesAdminController                    100%
+  RaizesDoNordeste.Api.Controllers.EstoqueController                          100%
+  RaizesDoNordeste.Api.Controllers.MeuPerfilController                        100%
+  RaizesDoNordeste.Api.Controllers.PedidosController                          100%
+  RaizesDoNordeste.Api.Controllers.ProdutosController                        62.5%
+  RaizesDoNordeste.Api.Controllers.RelatoriosController                       100%
+  RaizesDoNordeste.Api.Controllers.UnidadesController                          75%
+  RaizesDoNordeste.Api.Controllers.UsuariosController                         100%
+  RaizesDoNordeste.Api.Controllers.WebhookPagamentosController               94.4%
+  RaizesDoNordeste.Api.Infra.CorrelacaoMiddleware                             100%
+  RaizesDoNordeste.Api.Infra.DocumentacaoOpenApi                                0%
+  RaizesDoNordeste.Api.Infra.ManipuladorExcecoes                               87%
+  RaizesDoNordeste.Api.Infra.UsuarioAtualHttp                                 100%
+
+RaizesDoNordeste.Application                                                 92.6%
+  RaizesDoNordeste.Application.Abstracoes.GatewayIndisponivelException        100%
+  RaizesDoNordeste.Application.Abstracoes.RespostaSolicitacaoPagamento        100%
+  RaizesDoNordeste.Application.Abstracoes.SolicitacaoPagamento                100%
+  RaizesDoNordeste.Application.Abstracoes.TokenGerado                         100%
+  RaizesDoNordeste.Application.Campanhas.CampanhaDto                          100%
+  RaizesDoNordeste.Application.Campanhas.CampanhaService                     76.1%
+  RaizesDoNordeste.Application.Campanhas.CriarCampanhaRequest                 100%
+  RaizesDoNordeste.Application.Campanhas.CriarCampanhaValidator               100%
+  RaizesDoNordeste.Application.Catalogo.CardapioDto                           100%
+  RaizesDoNordeste.Application.Catalogo.CardapioService                       100%
+  RaizesDoNordeste.Application.Catalogo.ConfigurarItemCardapioRequest         100%
+  RaizesDoNordeste.Application.Catalogo.ConfigurarItemCardapioValidator       100%
+  RaizesDoNordeste.Application.Catalogo.ItemCardapioDto                       100%
+  RaizesDoNordeste.Application.Catalogo.ProdutoDto                            100%
+  RaizesDoNordeste.Application.Catalogo.ProdutoRequest                        100%
+  RaizesDoNordeste.Application.Catalogo.ProdutoRequestValidator               100%
+  RaizesDoNordeste.Application.Catalogo.ProdutoService                       45.9%
+  RaizesDoNordeste.Application.Catalogo.SazonalidadeDto                       100%
+  RaizesDoNordeste.Application.Comum.AcessoNegadoException                    100%
+  RaizesDoNordeste.Application.Comum.ConflitoException                        100%
+  RaizesDoNordeste.Application.Comum.NaoAutenticadoException                  100%
+  RaizesDoNordeste.Application.Comum.NaoEncontradoException                   100%
+  RaizesDoNordeste.Application.Comum.Paginacao                                100%
+  RaizesDoNordeste.Application.Comum.PedidoOpcoes                             100%
+  RaizesDoNordeste.Application.Comum.PrivacidadeOpcoes                        100%
+  RaizesDoNordeste.Application.Comum.ResultadoPaginado<T>                     100%
+  RaizesDoNordeste.Application.Comum.ServicoAuditoria                         100%
+  RaizesDoNordeste.Application.Comum.ServicoIndisponivelException             100%
+  RaizesDoNordeste.Application.Comum.UsuarioAtualExtensoes                   90.9%
+  RaizesDoNordeste.Application.DependencyInjection                            100%
+  RaizesDoNordeste.Application.Estoques.DefinirEstoqueMinimoRequest           100%
+  RaizesDoNordeste.Application.Estoques.EstoqueOperacoes                     94.7%
+  RaizesDoNordeste.Application.Estoques.EstoqueService                       98.3%
+  RaizesDoNordeste.Application.Estoques.ItemEstoqueDto                        100%
+  RaizesDoNordeste.Application.Estoques.ItemMovimentado                       100%
+  RaizesDoNordeste.Application.Estoques.MovimentarEstoqueRequest              100%
+  RaizesDoNordeste.Application.Estoques.MovimentarEstoqueValidator            100%
+  RaizesDoNordeste.Application.Fidelidade.ConsultasCliente                    100%
+  RaizesDoNordeste.Application.Fidelidade.FidelidadeDto                       100%
+  RaizesDoNordeste.Application.Fidelidade.FidelidadeOperacoes                 100%
+  RaizesDoNordeste.Application.Fidelidade.FidelidadeService                    96%
+  RaizesDoNordeste.Application.Fidelidade.MovimentacaoPontosDto               100%
+  RaizesDoNordeste.Application.Identidade.AutenticacaoService                94.8%
+  RaizesDoNordeste.Application.Identidade.CriarUsuarioInternoRequest          100%
+  RaizesDoNordeste.Application.Identidade.CriarUsuarioInternoValidator        100%
+  RaizesDoNordeste.Application.Identidade.LoginRequest                        100%
+  RaizesDoNordeste.Application.Identidade.LoginValidator                      100%
+  RaizesDoNordeste.Application.Identidade.RegistrarClienteRequest             100%
+  RaizesDoNordeste.Application.Identidade.RegistrarClienteValidator           100%
+  RaizesDoNordeste.Application.Identidade.RegrasSenha                         100%
+  RaizesDoNordeste.Application.Identidade.TokenResponse                       100%
+  RaizesDoNordeste.Application.Identidade.UsuarioDto                          100%
+  RaizesDoNordeste.Application.Pagamentos.AssinaturaWebhook                   100%
+  RaizesDoNordeste.Application.Pagamentos.EstornoPagamentos                  78.2%
+  RaizesDoNordeste.Application.Pagamentos.NotificacaoPagamento                100%
+  RaizesDoNordeste.Application.Pagamentos.NotificacaoPagamentoValidator       100%
+  RaizesDoNordeste.Application.Pagamentos.PagamentoService                   88.9%
+  RaizesDoNordeste.Application.Pagamentos.SolicitarPagamentoRequest           100%
+  RaizesDoNordeste.Application.Pagamentos.SolicitarPagamentoValidator         100%
+  RaizesDoNordeste.Application.Pedidos.AtualizarStatusPedidoRequest           100%
+  RaizesDoNordeste.Application.Pedidos.CancelarPedidoRequest                  100%
+  RaizesDoNordeste.Application.Pedidos.CancelarPedidoValidator                100%
+  RaizesDoNordeste.Application.Pedidos.CriarPedidoRequest                     100%
+  RaizesDoNordeste.Application.Pedidos.CriarPedidoValidator                   100%
+  RaizesDoNordeste.Application.Pedidos.ExpiracaoPedidosService               91.4%
+  RaizesDoNordeste.Application.Pedidos.FiltroPedidos                          100%
+  RaizesDoNordeste.Application.Pedidos.HistoricoStatusDto                     100%
+  RaizesDoNordeste.Application.Pedidos.ItemPedidoRequest                      100%
+  RaizesDoNordeste.Application.Pedidos.PagamentoDto                           100%
+  RaizesDoNordeste.Application.Pedidos.PedidoDto                              100%
+  RaizesDoNordeste.Application.Pedidos.PedidoItemDto                          100%
+  RaizesDoNordeste.Application.Pedidos.PedidoResumoDto                        100%
+  RaizesDoNordeste.Application.Pedidos.PedidoService                         95.6%
+  RaizesDoNordeste.Application.Pedidos.ResultadoCriacaoPedido                 100%
+  RaizesDoNordeste.Application.Privacidade.AlterarConsentimentoRequest        100%
+  RaizesDoNordeste.Application.Privacidade.AlterarConsentimentoValidator      100%
+  RaizesDoNordeste.Application.Privacidade.ClienteAdminDto                    100%
+  RaizesDoNordeste.Application.Privacidade.ConsentimentoDto                   100%
+  RaizesDoNordeste.Application.Privacidade.DadosCadastraisDto                 100%
+  RaizesDoNordeste.Application.Privacidade.DadosTitularDto                    100%
+  RaizesDoNordeste.Application.Privacidade.PedidoTitularDto                   100%
+  RaizesDoNordeste.Application.Privacidade.PrivacidadeService                 100%
+  RaizesDoNordeste.Application.Relatorios.FiltroAuditoria                     100%
+  RaizesDoNordeste.Application.Relatorios.FiltroRelatorio                     100%
+  RaizesDoNordeste.Application.Relatorios.FiltroRelatorioValidator            100%
+  RaizesDoNordeste.Application.Relatorios.LinhaVendasDto                      100%
+  RaizesDoNordeste.Application.Relatorios.ProdutoMaisVendidoDto               100%
+  RaizesDoNordeste.Application.Relatorios.RegistroAuditoriaDto                100%
+  RaizesDoNordeste.Application.Relatorios.RelatorioService                   92.9%
+  RaizesDoNordeste.Application.Relatorios.RelatorioVendasDto                  100%
+  RaizesDoNordeste.Application.Relatorios.ResumoAuditoriaDto                  100%
+  RaizesDoNordeste.Application.Unidades.UnidadeDto                            100%
+  RaizesDoNordeste.Application.Unidades.UnidadeRequest                        100%
+  RaizesDoNordeste.Application.Unidades.UnidadeRequestValidator               100%
+  RaizesDoNordeste.Application.Unidades.UnidadeService                       42.4%
+
+RaizesDoNordeste.Domain                                                      97.3%
+  RaizesDoNordeste.Domain.Auditoria.RegistroAuditoria                         100%
+  RaizesDoNordeste.Domain.Campanhas.Campanha                                 96.7%
+  RaizesDoNordeste.Domain.Campanhas.ElegibilidadeCampanha                     100%
+  RaizesDoNordeste.Domain.Campanhas.PerfilCliente                             100%
+  RaizesDoNordeste.Domain.Campanhas.ResultadoElegibilidade                    100%
+  RaizesDoNordeste.Domain.Campanhas.Segmentacao                              88.8%
+  RaizesDoNordeste.Domain.Catalogo.ItemCardapio                               100%
+  RaizesDoNordeste.Domain.Catalogo.JanelaSazonal                             96.2%
+  RaizesDoNordeste.Domain.Catalogo.Produto                                    100%
+  RaizesDoNordeste.Domain.Clientes.Cliente                                    100%
+  RaizesDoNordeste.Domain.Clientes.Consentimento                              100%
+  RaizesDoNordeste.Domain.Clientes.MovimentacaoPontos                        87.5%
+  RaizesDoNordeste.Domain.Clientes.RegrasFidelidade                          86.6%
+  RaizesDoNordeste.Domain.Comum.DomainException                               100%
+  RaizesDoNordeste.Domain.Comum.Entidade                                      100%
+  RaizesDoNordeste.Domain.Comum.Guarda                                       88.2%
+  RaizesDoNordeste.Domain.Comum.RaizAgregado                                  100%
+  RaizesDoNordeste.Domain.Estoques.ItemEstoque                                100%
+  RaizesDoNordeste.Domain.Estoques.MovimentacaoEstoque                       95.2%
+  RaizesDoNordeste.Domain.Identidade.Usuario                                   97%
+  RaizesDoNordeste.Domain.Pagamentos.Pagamento                               96.7%
+  RaizesDoNordeste.Domain.Pedidos.CalculadoraPedido                            96%
+  RaizesDoNordeste.Domain.Pedidos.HistoricoStatusPedido                       100%
+  RaizesDoNordeste.Domain.Pedidos.ItemNovoPedido                              100%
+  RaizesDoNordeste.Domain.Pedidos.Pedido                                       98%
+  RaizesDoNordeste.Domain.Pedidos.PedidoCriado                                100%
+  RaizesDoNordeste.Domain.Pedidos.PedidoItem                                  100%
+  RaizesDoNordeste.Domain.Pedidos.PedidoStatusAlterado                        100%
+  RaizesDoNordeste.Domain.Pedidos.ResultadoPrecificacao                       100%
+  RaizesDoNordeste.Domain.Unidades.Unidade                                    100%
+
+RaizesDoNordeste.Infrastructure                                              62.7%
+  RaizesDoNordeste.Infrastructure.DependencyInjection                          92%
+  RaizesDoNordeste.Infrastructure.Jobs.ExpiracaoPedidosJob                      0%
+  RaizesDoNordeste.Infrastructure.Jobs.JobsOpcoes                               0%
+  RaizesDoNordeste.Infrastructure.Outbox.OutboxDispatcher                       0%
+  RaizesDoNordeste.Infrastructure.Outbox.OutboxMessage                         55%
+  RaizesDoNordeste.Infrastructure.Outbox.PublicadorEventosLog                   0%
+  RaizesDoNordeste.Infrastructure.Pagamentos.GatewayOpcoes                    100%
+  RaizesDoNordeste.Infrastructure.Pagamentos.GatewayPagamentoClient          81.2%
+  RaizesDoNordeste.Infrastructure.Persistencia.AppDbContext                   100%
+  RaizesDoNordeste.Infrastructure.Persistencia.CampanhaConfig                 100%
+  RaizesDoNordeste.Infrastructure.Persistencia.ClienteConfig                  100%
+  RaizesDoNordeste.Infrastructure.Persistencia.ConsentimentoConfig            100%
+  RaizesDoNordeste.Infrastructure.Persistencia.HistoricoStatusPedidoConfig    100%
+  RaizesDoNordeste.Infrastructure.Persistencia.ItemCardapioConfig             100%
+  RaizesDoNordeste.Infrastructure.Persistencia.ItemEstoqueConfig              100%
+  RaizesDoNordeste.Infrastructure.Persistencia.JsonOpcoes                     100%
+  RaizesDoNordeste.Infrastructure.Persistencia.MovimentacaoEstoqueConfig      100%
+  RaizesDoNordeste.Infrastructure.Persistencia.MovimentacaoPontosConfig       100%
+  RaizesDoNordeste.Infrastructure.Persistencia.OutboxMessageConfig            100%
+  RaizesDoNordeste.Infrastructure.Persistencia.PagamentoConfig                100%
+  RaizesDoNordeste.Infrastructure.Persistencia.PedidoConfig                   100%
+  RaizesDoNordeste.Infrastructure.Persistencia.PedidoItemConfig               100%
+  RaizesDoNordeste.Infrastructure.Persistencia.ProdutoConfig                  100%
+  RaizesDoNordeste.Infrastructure.Persistencia.RegistroAuditoriaConfig        100%
+  RaizesDoNordeste.Infrastructure.Persistencia.UnidadeConfig                  100%
+  RaizesDoNordeste.Infrastructure.Persistencia.UsuarioConfig                  100%
+  RaizesDoNordeste.Infrastructure.Seed.DataSeeder                            12.9%
+  RaizesDoNordeste.Infrastructure.Seed.SeedOpcoes                             100%
+  RaizesDoNordeste.Infrastructure.Seguranca.GeradorTokenJwt                   100%
+  RaizesDoNordeste.Infrastructure.Seguranca.JwtOpcoes                         100%
+  RaizesDoNordeste.Infrastructure.Seguranca.SenhaHasher                       100%

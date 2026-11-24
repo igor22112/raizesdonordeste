@@ -1,0 +1,21 @@
+==== Resumo do teste de pico ====
+
+Requisi%%es: 3936 (55.0/s)
+
+Todas as requisi%%es: p95=16.7 ms, m%dia=6.4 ms
+
+Criar pedido: p95=16.8 ms, m%dia=13.4 ms
+
+Erros inesperados: 0.00%
+
+Thresholds: tempo_criar_pedido=OK, erros_inesperados=OK, http_req_duration{scenario:navegacao}=OK
+
+
+
+running (1m11.5s), 000/100 VUs, 3076 complete and 0 interrupted iterations
+
+navegacao  [ 100% ] 00/60 VUs  1m10s 
+
+pedidos    [ 100% ] 00/40 VUs  1m10s  00.87 iters/s
+
+FIM 0

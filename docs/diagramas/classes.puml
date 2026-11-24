@@ -1,0 +1,183 @@
+@startuml classes
+!pragma layout smetana
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor #FFFDF5
+skinparam classBorderColor #8B4513
+hide empty methods
+
+package "Unidades" {
+  class Unidade {
+    Nome, Cidade, Uf
+    Regiao : Regiao
+    Tipo : TipoUnidade
+    FusoHorario
+    HoraAbertura, HoraFechamento
+    Ativa
+    +EstaAberta(agora) : bool
+    +DataLocal(agora) : DateOnly
+  }
+  enum TipoUnidade {
+    CozinhaCompleta
+    CozinhaReduzida
+  }
+}
+
+package "Catálogo" {
+  class Produto {
+    Nome, Descricao
+    Categoria
+    PrecoBase
+    RequerCozinhaCompleta
+    Sazonalidade : JanelaSazonal?
+    +DisponivelNaData(d) : bool
+    +CompativelCom(tipo) : bool
+  }
+  class JanelaSazonal <<value object>> {
+    InicioMmdd, FimMmdd
+    +Contem(data) : bool
+  }
+  class ItemCardapio {
+    PrecoLocal?
+    Disponivel
+    ObservacaoRegional?
+    +PrecoEfetivo(p) : decimal
+  }
+}
+
+package "Estoque" {
+  class ItemEstoque {
+    Quantidade
+    Reservada
+    Minimo
+    Versao <<rowversion>>
+    +Disponivel : int
+    +Entrada(q) / Ajustar(d) / RegistrarPerda(q)
+  }
+  class MovimentacaoEstoque {
+    Tipo, Quantidade(±)
+    Motivo, PedidoId?
+  }
+}
+
+package "Pedidos" {
+  class Pedido <<aggregate root>> {
+    CanalPedido : CanalPedido
+    Status : StatusPedido
+    ChaveIdempotencia
+    Subtotal, DescontoNivel,
+    DescontoCampanha, DescontoPontos, Total
+    PontosResgatados
+    ExpiraEm
+    +Criar(...) {static}
+    +ConfirmarPagamento()
+    +IniciarPreparo() / MarcarPronto() / Entregar()
+    +Cancelar(motivo, gerencia)
+    +Expirar()
+  }
+  class PedidoItem {
+    NomeProduto, PrecoUnitario, Quantidade
+  }
+  class HistoricoStatusPedido {
+    De, Para, Motivo, OcorridoEm
+  }
+  class CalculadoraPedido <<service>> {
+    +Calcular(subtotal, %nivel, %campanha,\n pontos, saldo) : ResultadoPrecificacao {static}
+  }
+  enum StatusPedido {
+    AguardandoPagamento
+    Pago
+    EmPreparo
+    Pronto
+    Entregue
+    Cancelado
+    Expirado
+  }
+  enum CanalPedido {
+    App
+    Totem
+    Balcao
+    Web
+    Pickup
+  }
+}
+
+package "Pagamentos" {
+  class Pagamento {
+    Valor, Metodo
+    Status : StatusPagamento
+    TransacaoExternaId
+    Versao <<rowversion>>
+    +RegistrarEnvio() / Aprovar() / Recusar()
+    +MarcarFalha() / Estornar() / MarcarEstornoPendente()
+  }
+}
+
+package "Identidade e Clientes" {
+  class Usuario {
+    Nome, Email, SenhaHash
+    Perfil : Perfil
+    UnidadeId?
+    +Anonimizar()
+  }
+  class Cliente {
+    DataNascimento?
+    Telefone?
+    SaldoPontos
+    Anonimizado
+  }
+  class Consentimento <<append-only>> {
+    Tipo, Concedido
+    VersaoTermo, RegistradoEm
+  }
+  class MovimentacaoPontos {
+    Tipo, Pontos
+  }
+  class RegrasFidelidade <<static>> {
+    +CalcularNivel(n) : Nivel
+    +PercentualDesconto(nivel)
+    +PontosGanhos(valor)
+  }
+}
+
+package "Campanhas" {
+  class Campanha {
+    Nome, PercentualDesconto
+    InicioEm, FimEm, Ativa
+    FrequenciaMinima?, NivelMinimo?
+    Regiao?
+    +EstaVigente(agora)
+  }
+  class ElegibilidadeCampanha <<service>> {
+    +Avaliar(campanha, perfil, regiao, agora) {static}
+  }
+}
+
+package "Auditoria" {
+  class RegistroAuditoria <<imutável>> {
+    OcorridoEm, UsuarioId, Perfil
+    UnidadeId, Acao, Entidade, EntidadeId
+    DetalhesJson, Ip, CorrelacaoId
+  }
+}
+
+Unidade "1" -- "*" ItemCardapio
+Produto "1" -- "*" ItemCardapio
+Produto o-- "0..1" JanelaSazonal
+Unidade "1" -- "*" ItemEstoque
+Produto "1" -- "*" ItemEstoque
+ItemEstoque ..> MovimentacaoEstoque : registra
+Unidade "1" -- "*" Pedido
+Cliente "0..1" -- "*" Pedido
+Pedido *-- "1..*" PedidoItem
+Pedido *-- "1..*" HistoricoStatusPedido
+Pedido "1" -- "*" Pagamento
+Pedido ..> CalculadoraPedido
+Campanha "0..1" -- "*" Pedido
+Usuario "1" -- "0..1" Cliente
+Cliente "1" *-- "*" Consentimento
+Cliente "1" *-- "*" MovimentacaoPontos
+Usuario "*" -- "0..1" Unidade : trabalha em >
+ElegibilidadeCampanha ..> Campanha
+CalculadoraPedido ..> RegrasFidelidade
+@enduml

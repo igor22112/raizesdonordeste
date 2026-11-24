@@ -1,0 +1,45 @@
+@startuml atividade-cancelamento
+skinparam defaultFontName Arial
+start
+:POST /pedidos/{id}/cancelamento {motivo};
+if (Perfil é Cozinha?) then (sim)
+  :403 Acesso negado;
+  stop
+endif
+if (Usuário tem acesso ao pedido?) then (não)
+  :404 Não encontrado;
+  stop
+endif
+switch (Status atual)
+case (AguardandoPagamento)
+  :Liberar reserva de estoque;
+case (Pago)
+  :Devolver itens ao estoque\n(MovimentacaoEstoque: DevolucaoCancelamento);
+  :Marcar pagamento para estorno;
+case (EmPreparo)
+  if (Gerência?) then (sim)
+    :Insumo perdido\n(nada volta ao estoque);
+    :Marcar pagamento para estorno;
+  else (não)
+    :409 CANCELAMENTO_EXIGE_GERENCIA;
+    stop
+  endif
+case (Pronto / Entregue / finalizado)
+  :409 TRANSICAO_INVALIDA;
+  stop
+endswitch
+:Devolver pontos resgatados;
+:Registrar auditoria PedidoCancelado;
+:Commit da transação;
+if (Há pagamento aprovado?) then (sim)
+  :Solicitar estorno ao gateway\n(fora da transação);
+  if (Gateway respondeu?) then (sim)
+    :Pagamento = Estornado;
+  else (não)
+    :Pagamento = EstornoPendente;
+  endif
+  :Auditoria PagamentoEstornado;
+endif
+:200 OK (pedido Cancelado);
+stop
+@enduml

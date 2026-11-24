@@ -1,0 +1,21 @@
+@startuml estados-pedido
+skinparam defaultFontName Arial
+skinparam stateBackgroundColor #FFF8E7
+skinparam stateBorderColor #8B4513
+
+[*] --> AguardandoPagamento : criar pedido\n(reserva estoque,\ndebita pontos)
+AguardandoPagamento --> Pago : webhook "aprovado"\n(baixa do estoque)
+AguardandoPagamento --> AguardandoPagamento : pagamento recusado /\ngateway indisponível\n(nova tentativa)
+AguardandoPagamento --> Cancelado : cliente, totem, atendente ou gerente\n(libera reserva, devolve pontos)
+AguardandoPagamento --> Expirado : job após 15 min\n(libera reserva, devolve pontos)
+Pago --> EmPreparo : cozinha / atendente / gerente
+Pago --> Cancelado : cliente, atendente ou gerente\n(devolve estoque + estorno)
+EmPreparo --> Pronto : cozinha / atendente / gerente
+EmPreparo --> Cancelado : somente gerência\n(estorno; insumo perdido)
+Pronto --> Entregue : atendente / gerente\n(credita pontos)
+Entregue --> [*]
+Cancelado --> [*]
+Expirado --> [*]
+
+note right of Cancelado : motivo obrigatório\nregistro de auditoria
+@enduml

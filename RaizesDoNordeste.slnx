@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PaymentGateway.Mock/PaymentGateway.Mock.csproj" />
+    <Project Path="src/RaizesDoNordeste.Api/RaizesDoNordeste.Api.csproj" />
+    <Project Path="src/RaizesDoNordeste.Application/RaizesDoNordeste.Application.csproj" />
+    <Project Path="src/RaizesDoNordeste.Domain/RaizesDoNordeste.Domain.csproj" />
+    <Project Path="src/RaizesDoNordeste.Infrastructure/RaizesDoNordeste.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RaizesDoNordeste.IntegrationTests/RaizesDoNordeste.IntegrationTests.csproj" />
+    <Project Path="tests/RaizesDoNordeste.UnitTests/RaizesDoNordeste.UnitTests.csproj" />
+  </Folder>
+</Solution>

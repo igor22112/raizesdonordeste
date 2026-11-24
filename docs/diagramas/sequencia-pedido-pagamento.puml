@@ -1,0 +1,62 @@
+@startuml sequencia-pedido-pagamento
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+autonumber
+actor "Cliente (App)" as C
+participant "API" as API
+database "SQL Server" as DB
+participant "Gateway de\npagamento" as GW
+participant "Job Outbox" as OB
+
+C -> API : POST /pedidos\n(canalPedido, Idempotency-Key, itens, pontos)
+API -> DB : busca pedido pela chave (idempotência)
+API -> DB : valida unidade aberta, cardápio,\nsazonalidade, cozinha, consentimentos
+group Transação
+  API -> DB : UPDATE Estoques SET Reservada += q\nWHERE Quantidade - Reservada >= q
+  alt sem saldo (0 linhas)
+    API --> C : 409 ESTOQUE_INSUFICIENTE (rollback)
+  end
+  API -> DB : UPDATE Clientes SET SaldoPontos -= p WHERE SaldoPontos >= p
+  API -> DB : INSERT Pedido (AguardandoPagamento, ExpiraEm = +15 min)\n+ Auditoria(DescontoAplicado) + Outbox(PedidoCriado)
+end
+API --> C : 201 Created (pedido)
+
+C -> API : POST /pedidos/{id}/pagamentos {Pix}
+API -> DB : INSERT Pagamento (Pendente)\n[UK filtrado: 1 ativo por pedido]
+API -> GW : POST /v1/pagamentos\nIdempotency-Key = PagamentoId
+note right of API
+  Timeout por tentativa 3s, 2 re-tentativas
+  com backoff + jitter, circuit breaker.
+  Re-tentar é seguro: mesma chave = mesma transação.
+end note
+alt gateway disponível
+  GW --> API : 202 {transacaoId}
+  API -> DB : Pagamento.TransacaoExternaId
+  API --> C : 202 Accepted (Pendente)
+else indisponível / circuito aberto
+  API -> DB : Pagamento = Falhou
+  API --> C : 503 + Retry-After (pedido segue aguardando)
+end
+
+... processamento no gateway ...
+GW -> API : POST /webhooks/pagamentos\nX-Timestamp + X-Assinatura (HMAC-SHA256)
+API -> API : valida assinatura e janela de 5 min
+group Transação (idempotente)
+  alt aprovado e pedido aguardando
+    API -> DB : Pagamento = Aprovado; Pedido = Pago
+    API -> DB : UPDATE Estoques SET Quantidade -= q, Reservada -= q\n+ MovimentacaoEstoque(SaidaVenda) + Outbox
+  else aprovado mas pedido já cancelado/expirado
+    API -> DB : Pagamento = Aprovado
+    API -> GW : POST /estornos (fora da transação)
+    API -> DB : Pagamento = Estornado (ou EstornoPendente) + Auditoria
+  else recusado
+    API -> DB : Pagamento = Recusado (pedido segue aguardando)
+  end
+end
+API --> GW : 200 OK
+
+OB -> DB : lê Outbox não processada
+OB -> OB : publica eventos (painel cozinha, notificações, BI)
+C -> API : GET /pedidos/{id}
+API --> C : status Pago + histórico
+@enduml

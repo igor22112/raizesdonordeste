@@ -1,0 +1,188 @@
+@startuml der
+!pragma layout smetana
+skinparam defaultFontName Arial
+skinparam linetype ortho
+hide circle
+skinparam classBackgroundColor #F7FBFF
+skinparam classBorderColor #1F4E79
+
+entity "Unidades" as UN {
+  * Id : uniqueidentifier <<PK>>
+  --
+  Nome : nvarchar(120)
+  Cidade : nvarchar(80)
+  Uf : nchar(2)
+  Regiao : nvarchar(30)
+  Tipo : nvarchar(30)
+  FusoHorario : nvarchar(60)
+  HoraAbertura : time
+  HoraFechamento : time
+  Ativa : bit
+}
+entity "Produtos" as PR {
+  * Id : uniqueidentifier <<PK>>
+  --
+  Nome : nvarchar(120)
+  Descricao : nvarchar(500)
+  Categoria : nvarchar(30)
+  PrecoBase : decimal(10,2)
+  RequerCozinhaCompleta : bit
+  SazonalInicioMmdd : int NULL
+  SazonalFimMmdd : int NULL
+  Ativo : bit
+}
+entity "ItensCardapio" as IC {
+  * UnidadeId : <<PK,FK>>
+  * ProdutoId : <<PK,FK>>
+  --
+  PrecoLocal : decimal(10,2) NULL
+  Disponivel : bit
+  ObservacaoRegional : nvarchar(300)
+}
+entity "Estoques" as ES {
+  * UnidadeId : <<PK,FK>>
+  * ProdutoId : <<PK,FK>>
+  --
+  Quantidade : int
+  Reservada : int
+  Minimo : int
+  Versao : rowversion
+  CHECK (Reservada <= Quantidade ...)
+}
+entity "MovimentacoesEstoque" as ME {
+  * Id <<PK>>
+  --
+  UnidadeId, ProdutoId
+  Tipo : nvarchar(30)
+  Quantidade : int
+  Motivo : nvarchar(300)
+  UsuarioId, PedidoId : NULL
+  OcorridoEm : datetimeoffset
+}
+entity "Usuarios" as US {
+  * Id <<PK>>
+  --
+  Nome : nvarchar(120)
+  Email : nvarchar(200) <<UK>>
+  SenhaHash : nvarchar(300)
+  Perfil : nvarchar(30)
+  UnidadeId : <<FK>> NULL
+  Ativo : bit
+  CriadoEm : datetimeoffset
+}
+entity "Clientes" as CL {
+  * Id : <<PK,FK Usuarios>>
+  --
+  DataNascimento : date NULL
+  Telefone : nvarchar(20) NULL
+  SaldoPontos : int  CHECK >= 0
+  Anonimizado : bit
+  AnonimizadoEm : datetimeoffset NULL
+}
+entity "Consentimentos" as CO {
+  * Id <<PK>>
+  --
+  ClienteId : <<FK>>
+  Tipo : nvarchar(30)
+  Concedido : bit
+  VersaoTermo : nvarchar(20)
+  RegistradoEm : datetimeoffset
+  Origem : nvarchar(60)
+}
+entity "MovimentacoesPontos" as MP {
+  * Id <<PK>>
+  --
+  ClienteId : <<FK>>
+  Tipo : nvarchar(30)
+  Pontos : int
+  PedidoId : NULL
+  OcorridoEm
+}
+entity "Campanhas" as CA {
+  * Id <<PK>>
+  --
+  Nome, Descricao
+  PercentualDesconto : decimal(5,4)
+  InicioEm, FimEm, Ativa
+  FrequenciaMinima, NivelMinimo
+  Regiao : NULL
+}
+entity "Pedidos" as PE {
+  * Id <<PK>>
+  --
+  UnidadeId : <<FK>>
+  ClienteId : <<FK>> NULL
+  CampanhaId : <<FK>> NULL
+  CriadoPorUsuarioId
+  ChaveIdempotencia : nvarchar(100)
+  CanalPedido, Status : nvarchar(30)
+  Subtotal, DescontoNivel, DescontoCampanha,
+  DescontoPontos, Total : decimal(10,2)
+  PontosResgatados : int
+  NomeChamada, Observacao, MotivoCancelamento
+  CriadoEm, AtualizadoEm, ExpiraEm
+  Versao : rowversion
+  UK (CriadoPorUsuarioId, ChaveIdempotencia)
+}
+entity "PedidoItens" as PI {
+  * Id <<PK>>
+  --
+  PedidoId : <<FK>>
+  ProdutoId : <<FK>>
+  NomeProduto : nvarchar(120)
+  PrecoUnitario : decimal(10,2)
+  Quantidade : int CHECK > 0
+}
+entity "PedidoHistoricoStatus" as PH {
+  * Id <<PK>>
+  --
+  PedidoId : <<FK>>
+  De, Para : nvarchar(30)
+  UsuarioId, Motivo
+  OcorridoEm
+}
+entity "Pagamentos" as PG {
+  * Id <<PK>>
+  --
+  PedidoId : <<FK>>
+  Valor : decimal(10,2)
+  Metodo, Status : nvarchar(30)
+  TransacaoExternaId : nvarchar(100)
+  Detalhe : nvarchar(300)
+  CriadoEm, AtualizadoEm
+  Versao : rowversion
+  UK filtrado (PedidoId) WHERE Status IN (Pendente, Aprovado)
+}
+entity "Auditoria" as AU {
+  * Id <<PK>>
+  --
+  OcorridoEm, UsuarioId, Perfil, UnidadeId
+  Acao, Entidade, EntidadeId
+  DetalhesJson : nvarchar(max)
+  Ip, CorrelacaoId
+}
+entity "Outbox" as OB {
+  * Id <<PK>>
+  --
+  Tipo : nvarchar(200)
+  Payload : nvarchar(max)
+  OcorridoEm, ProcessadoEm NULL
+  Tentativas, UltimoErro
+}
+
+UN ||--o{ IC
+PR ||--o{ IC
+UN ||--o{ ES
+PR ||--o{ ES
+UN ||--o{ US
+US ||--o| CL
+CL ||--o{ CO
+CL ||--o{ MP
+UN ||--o{ PE
+CL |o--o{ PE
+CA |o--o{ PE
+PE ||--|{ PI
+PR ||--o{ PI
+PE ||--|{ PH
+PE ||--o{ PG
+@enduml

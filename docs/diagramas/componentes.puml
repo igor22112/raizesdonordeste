@@ -1,0 +1,65 @@
+@startuml componentes
+!pragma layout smetana
+skinparam defaultFontName Arial
+skinparam componentStyle rectangle
+
+package "Clientes da API" {
+  [App do cliente] as APP
+  [Totem de auto-atendimento] as TOT
+  [Front de balcão / cozinha] as BAL
+  [Painel da matriz] as MAT
+}
+
+node "RaizesDoNordeste.Api (ASP.NET Core)" {
+  [Controllers REST /api/v1] as CTRL
+  [JWT + Autorização por perfil] as AUTH
+  [Rate limiting / Output cache] as RL
+  [ProblemDetails + Correlation-Id] as ERR
+  package "Application (casos de uso)" {
+    [Pedidos] as UCP
+    [Pagamentos] as UCPG
+    [Catálogo/Cardápio] as UCC
+    [Estoque] as UCE
+    [Fidelidade/Campanhas] as UCF
+    [Privacidade (LGPD)] as UCL
+    [Relatórios/Auditoria] as UCR
+  }
+  package "Domain" {
+    [Entidades e regras\n(máquina de estados, precificação,\nsazonalidade, elegibilidade)] as DOM
+  }
+  package "Infrastructure" {
+    [EF Core AppDbContext\n(Outbox no SaveChanges)] as EF
+    [Cliente HTTP do gateway\n(timeout, retry, circuit breaker)] as GWC
+    [Job Outbox] as JOB1
+    [Job Expiração de pedidos] as JOB2
+  }
+}
+
+database "SQL Server 2022" as SQL
+cloud "Gateway de pagamento\n(serviço externo)" as GW
+queue "Broker de eventos\n(evolução)" as MQ
+
+APP --> CTRL : HTTPS/JSON
+TOT --> CTRL
+BAL --> CTRL
+MAT --> CTRL
+CTRL --> AUTH
+CTRL --> UCP
+CTRL --> UCPG
+CTRL --> UCC
+CTRL --> UCE
+CTRL --> UCF
+CTRL --> UCL
+CTRL --> UCR
+UCP --> DOM
+UCPG --> DOM
+UCF --> DOM
+UCP --> EF
+UCPG --> GWC
+EF --> SQL
+GWC --> GW : POST /v1/pagamentos\n(Idempotency-Key)
+GW --> CTRL : webhook assinado (HMAC)
+JOB1 --> SQL
+JOB1 ..> MQ : publica eventos
+JOB2 --> SQL
+@enduml

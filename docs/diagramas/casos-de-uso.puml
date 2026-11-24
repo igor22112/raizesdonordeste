@@ -1,0 +1,70 @@
+@startuml casos-de-uso
+!pragma layout smetana
+left to right direction
+skinparam packageStyle rectangle
+skinparam actorStyle awesome
+skinparam defaultFontName Arial
+skinparam usecaseBackgroundColor #FFF8E7
+skinparam usecaseBorderColor #8B4513
+
+actor "Cliente\n(App/Web/Totem)" as Cliente
+actor "Totem" as Totem
+actor "Atendente" as Atendente
+actor "Cozinha" as Cozinha
+actor "Gerente da unidade" as Gerente
+actor "Admin da matriz" as Admin
+actor "Gateway de pagamento\n(sistema externo)" as Gateway
+actor "Agendador (jobs)" as Job
+
+rectangle "Raízes do Nordeste — API" {
+  usecase "UC01 Cadastrar-se e\nconsentir (LGPD)" as UC01
+  usecase "UC02 Autenticar" as UC02
+  usecase "UC03 Consultar cardápio\nda unidade" as UC03
+  usecase "UC04 Criar pedido\n(canalPedido: App/Web/\nTotem/Balcao/Pickup)" as UC04
+  usecase "UC05 Solicitar pagamento" as UC05
+  usecase "UC06 Receber confirmação\n(webhook)" as UC06
+  usecase "UC07 Acompanhar pedido" as UC07
+  usecase "UC08 Atualizar preparo\n(EmPreparo/Pronto/Entregue)" as UC08
+  usecase "UC09 Cancelar pedido" as UC09
+  usecase "UC10 Estornar pagamento" as UC10
+  usecase "UC11 Consultar fidelidade\ne resgatar pontos" as UC11
+  usecase "UC12 Gerir consentimentos,\nexportar e excluir dados" as UC12
+  usecase "UC13 Movimentar estoque" as UC13
+  usecase "UC14 Configurar cardápio\nlocal (preço/variação)" as UC14
+  usecase "UC15 Manter unidades,\nprodutos e usuários" as UC15
+  usecase "UC16 Criar campanhas\nsegmentadas" as UC16
+  usecase "UC17 Relatórios consolidados" as UC17
+  usecase "UC18 Consultar auditoria" as UC18
+  usecase "UC19 Expirar pedidos\nnão pagos" as UC19
+}
+
+Cliente --> UC01
+Cliente --> UC03
+Cliente --> UC04
+Cliente --> UC07
+Cliente --> UC09
+Cliente --> UC11
+Cliente --> UC12
+Totem --> UC04
+Atendente --> UC04
+Atendente --> UC08
+Atendente --> UC09
+Cozinha --> UC08
+Gerente --> UC09
+Gerente --> UC13
+Gerente --> UC14
+Gerente --> UC17
+Admin --> UC15
+Admin --> UC16
+Admin --> UC17
+Admin --> UC18
+Gateway --> UC06
+Job --> UC19
+
+UC04 ..> UC05 : <<extend>>
+UC04 ..> UC02 : <<include>>
+UC09 ..> UC10 : <<extend>>\n(se já pago)
+UC05 ..> UC10 : <<extend>>\n(aprovação tardia)
+UC05 --> Gateway
+UC10 --> Gateway
+@enduml

@@ -1,0 +1,313 @@
+INICIO 2026-11-11T22:36:14.5640388-03:00
+newman
+
+Ra%�zes do Nordeste - API
+Using [32mhtmlextra[39m version [32m1.21.0[39m
+
+��� 00 - Autentica%�%�o
+��% Login admin (matriz)
+  POST http://api:8080/api/v1/auth/login [200 OK, 795B, 163ms]
+  ���  HTTP 200
+
+��% Login cliente Maria
+  POST http://api:8080/api/v1/auth/login [200 OK, 770B, 42ms]
+  ���  HTTP 200
+
+��% Login cliente Ana (sem fidelidade)
+  POST http://api:8080/api/v1/auth/login [200 OK, 749B, 37ms]
+  ���  HTTP 200
+
+��% Login gerente aeroporto
+  POST http://api:8080/api/v1/auth/login [200 OK, 931B, 35ms]
+  ���  HTTP 200
+
+��% Login atendente aeroporto
+  POST http://api:8080/api/v1/auth/login [200 OK, 943B, 35ms]
+  ���  HTTP 200
+
+��% Login cozinha aeroporto
+  POST http://api:8080/api/v1/auth/login [200 OK, 931B, 34ms]
+  ���  HTTP 200
+
+��% Login totem aeroporto
+  POST http://api:8080/api/v1/auth/login [200 OK, 927B, 33ms]
+  ���  HTTP 200
+
+��% [NEG] Login com senha errada -> 401
+  POST http://api:8080/api/v1/auth/login [401 Unauthorized, 473B, 47ms]
+  ���  HTTP 401
+  ���  codigo NAO_AUTENTICADO
+
+��% Registrar novo cliente
+  POST http://api:8080/api/v1/auth/registro [201 Created, 369B, 58ms]
+  ���  HTTP 201
+
+��% [NEG] Registro sem aceitar termos -> 400
+  POST http://api:8080/api/v1/auth/registro [400 Bad Request, 576B, 9ms]
+  ���  HTTP 400
+  ���  codigo VALIDACAO
+
+��% [NEG] Sem token -> 401
+  GET http://api:8080/api/v1/pedidos [401 Unauthorized, 406B, 10ms]
+  ���  HTTP 401
+
+��% [NEG] Cliente acessando auditoria -> 403
+  GET http://api:8080/api/v1/auditoria [403 Forbidden, 374B, 19ms]
+  ���  HTTP 403
+
+��� 01 - Unidades e card%�pio
+��% Listar unidades
+  GET http://api:8080/api/v1/unidades [200 OK, 2.02KB, 38ms]
+  ���  HTTP 200
+  ���  Aeroporto 24h aberta
+  ���  Aeroporto tem cozinha reduzida
+
+��% Card%�pio da unidade (reduzida)
+  GET http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/cardapio [200 OK, 2.2KB, 95ms]
+  ���  HTTP 200
+  ���  Sem produtos que exigem cozinha completa
+  ���  Sem produtos juninos fora de %�poca
+
+��% Card%�pio Boa Viagem (completa)
+  GET http://api:8080/api/v1/unidades/c86a7c2f-27d3-4ad0-a826-1e9601c71805/cardapio [200 OK, 3.12KB, 7ms]
+  ���  HTTP 200
+  ���  Cozinha completa oferece cuscuz
+
+��% Gerente define pre%�o local (auditado)
+  PUT http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/cardapio/04f36328-236f-46e4-a6ee-7a190180f362 [200 OK, 396B, 69ms]
+  ���  HTTP 200
+
+��% [NEG] Liberar cuscuz em unidade reduzida -> 422
+  PUT http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/cardapio/55faf504-e5f2-477d-9d4f-b72c29de639e [422 Unprocessable Entity, 555B, 6ms]
+  ���  HTTP 422
+  ���  codigo PRODUTO_INCOMPATIVEL_UNIDADE
+
+��% [NEG] Gerente alterando card%�pio de outra unidade -> 403
+  PUT http://api:8080/api/v1/unidades/c86a7c2f-27d3-4ad0-a826-1e9601c71805/cardapio/55faf504-e5f2-477d-9d4f-b72c29de639e [403 Forbidden, 482B, 4ms]
+  ���  HTTP 403
+
+��� 02 - Pedido pelo app com pagamento (fluxo feliz)
+��% Fidelidade antes
+  GET http://api:8080/api/v1/clientes/me/fidelidade [200 OK, 1.41KB, 113ms]
+  ���  HTTP 200
+  ���  Maria %� Prata
+
+��% Criar pedido (App) com resgate de pontos
+  POST http://api:8080/api/v1/pedidos [201 Created, 1.14KB, 165ms]
+  ���  HTTP 201
+  ���  Canal App
+  ���  Aguardando pagamento
+  ���  Desconto de n%�vel (Prata 3%)
+  ���  40 pontos = R$ 2,00
+
+��% Reenvio com a mesma Idempotency-Key -> 200 (n%�o duplica)
+  POST http://api:8080/api/v1/pedidos [200 OK, 1.06KB, 71ms]
+  ���  HTTP 200
+  ���  Mesmo pedido
+
+��% Solicitar pagamento (Pix) -> 202
+  POST http://api:8080/api/v1/pedidos/33a97dab-ccfc-47c6-bb51-1bcaf8c596b3/pagamentos [202 Accepted, 531B, 170ms]
+  ���  HTTP 202
+  ���  Pendente
+
+��% Acompanhar pedido -> Pago (webhook)
+  GET http://api:8080/api/v1/pedidos/33a97dab-ccfc-47c6-bb51-1bcaf8c596b3 [200 OK, 1.42KB, 15ms]
+  ���  HTTP 200
+  ���  Pago ap%%s o webhook
+
+��% Cozinha: EmPreparo
+  PATCH http://api:8080/api/v1/pedidos/33a97dab-ccfc-47c6-bb51-1bcaf8c596b3/status [200 OK, 1.57KB, 54ms]
+  ���  HTTP 200
+
+��% Cozinha: Pronto
+  PATCH http://api:8080/api/v1/pedidos/33a97dab-ccfc-47c6-bb51-1bcaf8c596b3/status [200 OK, 1.71KB, 21ms]
+  ���  HTTP 200
+
+��% [NEG] Cozinha n%�o entrega -> 403
+  PATCH http://api:8080/api/v1/pedidos/33a97dab-ccfc-47c6-bb51-1bcaf8c596b3/status [403 Forbidden, 491B, 8ms]
+  ���  HTTP 403
+
+��% Atendente: Entregue
+  PATCH http://api:8080/api/v1/pedidos/33a97dab-ccfc-47c6-bb51-1bcaf8c596b3/status [200 OK, 1.86KB, 25ms]
+  ���  HTTP 200
+  ���  Hist%%rico completo
+
+��% Fidelidade depois (pontos creditados)
+  GET http://api:8080/api/v1/clientes/me/fidelidade [200 OK, 1.67KB, 11ms]
+  ���  HTTP 200
+  ���  Debitou 40 e creditou o valor pago
+
+��� 03 - Totem, balc%�o e cancelamentos
+��% Totem cria pedido (canal Totem, an%$%nimo)
+  POST http://api:8080/api/v1/pedidos [201 Created, 1.09KB, 20ms]
+  ���  HTTP 201
+  ���  Canal Totem
+
+��% Cancelar antes do pagamento (libera reserva)
+  POST http://api:8080/api/v1/pedidos/77f05713-3942-42ee-bbdc-4b7310683209/cancelamento [200 OK, 1.2KB, 40ms]
+  ���  HTTP 200
+  ���  Cancelado
+
+��% Balc%�o cria pedido
+  POST http://api:8080/api/v1/pedidos [201 Created, 1.11KB, 14ms]
+  ���  HTTP 201
+  ���  Canal Balcao
+
+��% Balc%�o paga com cart%�o
+  POST http://api:8080/api/v1/pedidos/0fb8474e-b187-476d-9ace-b299c1099642/pagamentos [202 Accepted, 541B, 20ms]
+  ���  HTTP 202
+
+��% Cancelar pedido pago -> estorno no gateway
+  POST http://api:8080/api/v1/pedidos/0fb8474e-b187-476d-9ace-b299c1099642/cancelamento [200 OK, 1.56KB, 64ms]
+  ���  HTTP 200
+  ���  Cancelado
+  ���  Pagamento estornado
+
+��% [NEG] Totem de outra unidade -> 403
+  POST http://api:8080/api/v1/pedidos [403 Forbidden, 482B, 6ms]
+  ���  HTTP 403
+  ���  codigo ACESSO_NEGADO
+
+��% [NEG] Sem Idempotency-Key -> 400
+  POST http://api:8080/api/v1/pedidos [400 Bad Request, 537B, 4ms]
+  ���  HTTP 400
+  ���  codigo VALIDACAO
+
+��% [NEG] Quantidade acima do limite por item -> 400
+  POST http://api:8080/api/v1/pedidos [400 Bad Request, 568B, 7ms]
+  ���  HTTP 400
+  ���  codigo VALIDACAO
+
+��% [NEG] Ana sem consentimento tenta usar pontos -> 422
+  POST http://api:8080/api/v1/pedidos [422 Unprocessable Entity, 545B, 8ms]
+  ���  HTTP 422
+  ���  codigo FIDELIDADE_SEM_CONSENTIMENTO
+
+��� 04 - Estoque
+��% Listar estoque da unidade
+  GET http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/estoque [200 OK, 2.04KB, 29ms]
+  ���  HTTP 200
+
+��% Entrada de mercadoria
+  POST http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/estoque/movimentacoes [201 Created, 362B, 44ms]
+  ���  HTTP 201
+
+��% Registrar perda (auditada)
+  POST http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/estoque/movimentacoes [201 Created, 362B, 18ms]
+  ���  HTTP 201
+
+��% [NEG] Perda sem motivo -> 400
+  POST http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/estoque/movimentacoes [400 Bad Request, 544B, 4ms]
+  ���  HTTP 400
+  ���  codigo VALIDACAO
+
+��% [NEG] Gerente em estoque de outra unidade -> 403
+  GET http://api:8080/api/v1/unidades/c86a7c2f-27d3-4ad0-a826-1e9601c71805/estoque [403 Forbidden, 482B, 3ms]
+  ���  HTTP 403
+
+��% Itens abaixo do m%�nimo
+  GET http://api:8080/api/v1/unidades/f1347047-a2f5-4e29-95cd-f2d3e67f4979/estoque?abaixoDoMinimo=true [200 OK, 192B, 17ms]
+  ���  HTTP 200
+
+��� 05 - LGPD e campanhas
+��% Consentimentos atuais
+  GET http://api:8080/api/v1/clientes/me/consentimentos [200 OK, 543B, 24ms]
+  ���  HTTP 200
+
+��% Revogar campanhas personalizadas
+  PUT http://api:8080/api/v1/clientes/me/consentimentos [200 OK, 313B, 21ms]
+  ���  HTTP 200
+  ���  Revogado
+
+��% Conceder novamente
+  PUT http://api:8080/api/v1/clientes/me/consentimentos [200 OK, 312B, 11ms]
+  ���  HTTP 200
+
+��% [NEG] Revogar termos de uso -> 422
+  PUT http://api:8080/api/v1/clientes/me/consentimentos [422 Unprocessable Entity, 578B, 4ms]
+  ���  HTTP 422
+  ���  codigo TERMOS_OBRIGATORIOS
+
+��% Exportar meus dados (portabilidade)
+  GET http://api:8080/api/v1/clientes/me/dados [200 OK, 5.25KB, 74ms]
+  ���  HTTP 200
+  ���  Cont%�m cadastro e pedidos
+
+��% Admin cria campanha regional
+  POST http://api:8080/api/v1/campanhas [201 Created, 526B, 41ms]
+  ���  HTTP 201
+
+��% Campanhas eleg%�veis para a Maria
+  GET http://api:8080/api/v1/clientes/me/campanhas?unidadeId=f1347047-a2f5-4e29-95cd-f2d3e67f4979 [200 OK, 526B, 56ms]
+  ���  HTTP 200
+  ���  Campanha listada
+
+��% Admin consulta dados de cliente (acesso auditado)
+  GET http://api:8080/api/v1/clientes/0113d9fa-156d-4b48-8bfb-8be20191a2a2 [200 OK, 367B, 29ms]
+  ���  HTTP 200
+
+��� 06 - Relat%%rios e auditoria (matriz)
+��% Vendas por regi%�o (60 dias)
+  GET http://api:8080/api/v1/relatorios/vendas?de=2026-09-12&ate=2026-11-11&agrupamento=Regiao [200 OK, 797B, 52ms]
+  ���  HTTP 200
+  ���  H%� vendas
+
+��% Vendas por unidade
+  GET http://api:8080/api/v1/relatorios/vendas?de=2026-09-12&ate=2026-11-11&agrupamento=Unidade [200 OK, 1.42KB, 24ms]
+  ���  HTTP 200
+
+��% Vendas por canal
+  GET http://api:8080/api/v1/relatorios/vendas?de=2026-09-12&ate=2026-11-11&agrupamento=Canal [200 OK, 779B, 26ms]
+  ���  HTTP 200
+
+��% Produtos mais vendidos
+  GET http://api:8080/api/v1/relatorios/produtos-mais-vendidos?de=2026-09-12&ate=2026-11-11&top=5 [200 OK, 866B, 39ms]
+  ���  HTTP 200
+
+��% Opera%�%�es sens%�veis
+  GET http://api:8080/api/v1/relatorios/operacoes-sensiveis?de=2026-09-12&ate=2026-11-11 [200 OK, 563B, 38ms]
+  ���  HTTP 200
+
+��% Gerente v%� s%% a pr%%pria unidade
+  GET http://api:8080/api/v1/relatorios/vendas?de=2026-09-12&ate=2026-11-11&agrupamento=Unidade [200 OK, 502B, 19ms]
+  ���  HTTP 200
+  ���  Uma linha
+
+��% [NEG] Gerente no consolidado por regi%�o -> 403
+  GET http://api:8080/api/v1/relatorios/vendas?de=2026-09-12&ate=2026-11-11&agrupamento=Regiao [403 Forbidden, 490B, 3ms]
+  ���  HTTP 403
+
+��% Trilha de auditoria
+  GET http://api:8080/api/v1/auditoria?tamanho=20 [200 OK, 4.72KB, 33ms]
+  ���  HTTP 200
+  ���  Cancelamento auditado
+  ���  Estorno auditado
+
+��% [NEG] Webhook sem assinatura -> 401
+  POST http://api:8080/api/v1/webhooks/pagamentos [401 Unauthorized, 482B, 4ms]
+  ���  HTTP 401
+
+��% Health (readiness)
+  GET http://api:8080/health/ready [200 OK, 269B, 7ms]
+  ���  HTTP 200
+
+������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+���                         ���          executed ���           failed ���
+��������������������������������������������������������������������������������]%�����������������������������������������������������������]%���������������������������������������������������������
+���              iterations ���                 1 ���                0 ���
+��������������������������������������������������������������������������������]%�����������������������������������������������������������]%���������������������������������������������������������
+���                requests ���                61 ���                0 ���
+��������������������������������������������������������������������������������]%�����������������������������������������������������������]%���������������������������������������������������������
+���            test-scripts ���                61 ���                0 ���
+��������������������������������������������������������������������������������]%�����������������������������������������������������������]%���������������������������������������������������������
+���      prerequest-scripts ���                 7 ���                0 ���
+��������������������������������������������������������������������������������]%�����������������������������������������������������������]%���������������������������������������������������������
+���              assertions ���                97 ���                0 ���
+��������������������������������������������������������������������������������$%�����������������������������������������������������������$%���������������������������������������������������������
+��� total run duration: 20.2s                                      ���
+������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+��� total data received: 47.43KB (approx)                          ���
+������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+��� average response time: 36ms [min: 3ms, max: 170ms, s.d.: 37ms] ���
+������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+FIM 0
